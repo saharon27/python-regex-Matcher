@@ -1,23 +1,19 @@
 import re
-from colorama import init, Fore, Style
-from colorama.initialise import deinit
-
-init()
+#To add support for windows coloring un-comment those lines
+#from colorama import init, Fore, Style
+#init()
 
 def startSearching(arguments):
     # Compiling the pattern object and reuse the compiled object over and over in the loop
     pattern = re.compile(arguments.regex)
     #Checking for special style flags
+    deco=""
     if arguments.color is not None:
         deco = "color"
-    else: 
-        if arguments.underline is not None:
-            deco = "underline"
-        else:
-            if arguments.machine is not None:
-                deco = "machine"
-            else:
-                deco = "NoDeco"
+    if arguments.underline is not None:
+        deco = "underline"
+    if arguments.machine is not None:
+        deco = "machine"
     #checking for files or text input and running the search
     if type(arguments.files) == str:
         txt = arguments.files
@@ -48,7 +44,8 @@ def searchForMatch(nameOfFile, pattern, fullText, style):
             if style == "machine":
                 prefixForfullPrint = "{}:{}:".format(nameOfFile,index)
                 print(prefixForfullPrint + result.group())
-            if style == "noDeco":
+            if style == "":
+                prefixForfullPrint = "{} Line: {} - Line is: ".format(nameOfFile,index)
                 print(prefixForfullPrint + result.string)
         index+=1
 
