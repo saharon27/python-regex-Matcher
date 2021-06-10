@@ -8,8 +8,10 @@ def parseCmd():
     # Create the parser
     cmd_parser = argparse.ArgumentParser(prog='regexMathcer', description='Find matching lines in files or STDIN text using regex expression')
 
-    # Add the supported arguments
-    cmd_parser.add_argument('-r', '--regex', metavar='REGEXP', type=str, help='mandatory - the regular expression to search for.', required=True)
+    # Add the required arguments
+    required = cmd_parser.add_argument_group('required arguments')
+    required.add_argument('-r', '--regex', metavar='REGEXP', type=str, help='mandatory - the regular expression to search for.', required=True)
+    
     cmd_parser.add_argument('-f', '--files', metavar='FILES', nargs='+', help='optional - a list of files to search in. If this parameter is omitted, the app expects text input from STDIN.')
     # mutually exclusive parameters
     exclusive = cmd_parser.add_mutually_exclusive_group()
